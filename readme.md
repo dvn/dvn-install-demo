@@ -409,3 +409,108 @@ If you've stopped the VM and later want to resume working on it you'll want to t
     Debugging is enabled.  The debugging port is: 9009
     Command start-domain executed successfully.
     [root@localhost ~]# 
+
+## Installing R and Rserve
+
+When we ran the DVN installer above we didn't install R or Rserve, which are optional components. We saw this message in the output:
+
+> Could not establish connection to localhost on port 6311, the address you provided for your R server.  DVN can function without a working R server, but much of the functionality concerning running statistics and analysis on quantitative data will not be available.  Please consult the "Installing R" section in the Installers guide for more info.
+
+Before we install R and Rserve, let's see what happens if we we try to run "Access Analysis + Subsetting" on a file when we don't have R and Rserve installed. We create a dataverse and study, upload a subsettable file, and click "Access Analysis + Subsetting" which shows us this error in our browser...
+
+    XML Parsing Error: no element found
+    Location: http://localhost:8888/dvn/dv/dv1/faces/subsetting/SubsettingPage.xhtml?dtId=1&versionNumber=1
+    Line Number 1, Column 1: 
+
+... and this error in at /usr/local/glassfish3/glassfish/domains/domain1/logs/server.log:
+
+    [#|2013-02-08T15:26:11.255+0100|SEVERE|glassfish3.1.2|javax.enterprise.system.std.com.sun.enterprise.server.logging|_ThreadID=24;_ThreadName=Thread-2;|javax.servlet.ServletException: Cant instantiate class: edu.harvard.iq.dvn.core.web.subsetting.AnalysisApplicationBean.
+
+Now, let's correct this by following <http://guides.thedata.org/book/2c-r-and-rserve> to install R and Rserve:
+
+    [pdurbin@tabby dvn-install-demo]$ vagrant ssh
+    [vagrant@localhost ~]$ sudo su -
+    [root@localhost ~]# yum install R R-devel
+    (snip)
+    No package R available.
+    No package R-devel available.
+    Error: Nothing to do
+    [root@localhost ~]# 
+
+Hmm, no package available. Per the guide, we need to enable the [Extra Packages for Enterprise Linux (EPEL)](http://fedoraproject.org/wiki/EPEL) yum repo first.
+
+    [root@localhost ~]# yum install http://mirror.hmdc.harvard.edu/fedora-epel/6/x86_64/epel-release-6-8.noarch.rpm
+
+Now that EPEL is enabled, we should be able to install R and R-devel and their few dozen dependencies:
+
+    [root@localhost ~]# yum install R R-devel
+
+Now, let's download dvnextra.tar and continue:
+
+    [root@localhost ~]# wget http://dvn.iq.harvard.edu/dist/R/dvnextra.tar
+    --2013-02-08 15:56:31--  http://dvn.iq.harvard.edu/dist/R/dvnextra.tar
+    Resolving dvn.iq.harvard.edu... 128.103.69.226
+    Connecting to dvn.iq.harvard.edu|128.103.69.226|:80... connected.
+    HTTP request sent, awaiting response... 200 OK
+    Length: 8960000 (8.5M) [application/x-tar]
+    Saving to: “dvnextra.tar”
+
+    100%[===========================================================================================================>] 8,960,000   1.75M/s   in 4.7s    
+
+    2013-02-08 15:56:41 (1.80 MB/s) - “dvnextra.tar” saved [8960000/8960000]
+
+    [root@localhost ~]# tar xvf dvnextra.tar 
+    dvnextra/
+    dvnextra/accuracy_1.35.tar.gz
+    dvnextra/VDCutil_1.17.tar.gz
+    dvnextra/vdc_startup.R
+    dvnextra/Rserv.conf
+    dvnextra/Zelig_3.5.4.tar.gz
+    dvnextra/installModules.sh
+    dvnextra/rserve
+    dvnextra/UNF_1.16.tar.gz
+    dvnextra/Rserv.pwd
+    dvnextra/R2HTML.css
+    [root@localhost ~]# cd dvnextra
+    [root@localhost dvnextra]# ./installModules.sh 
+
+    Installing additional R packages.
+
+    PLEASE NOTE: this may take a while (up to an hour)!
+
+    Also: 
+    Compiling these modules will generate a VERY large amount of output.
+    All these messages that you'll see on screen will also be saved
+    in several .LOG files in this directory.
+    If anything goes wrong during this installation, please send these
+    files to the DVN support team
+
+    (snip)
+
+    * DONE (Zelig)
+    FINISHED INSTALLING Zelig
+
+    installing package VDCUtil (from local source):
+
+    installing DVN startup files:
+
+    checking Rserve configuration:
+
+    installing Rserv configuration file.
+
+    Installing Rserve password file.
+    Please change the default password in /etc/Rserv.pwd
+    (and make sure this password is set correctly as a
+    JVM option in the glassfish configuration of your DVN)
+
+    Installing Rserve startup file.
+    You can start Rserve daemon by executing
+      service rserve start
+
+    Successfully installed DVN R framework.
+
+    [root@localhost dvnextra]# service rserve start
+    Starting Rserve daemon: .
+    [root@localhost dvnextra]# 
+
+Now the "Access Analysis + Subsetting" link we tried before should work. The bottom of the page should say "Statistical analysis powered by Zelig."
