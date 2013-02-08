@@ -23,7 +23,11 @@ FIXME: Right now you'll need a 64 bit "host" operating system. For discussion of
 
 ## Using this git repo to practice installing a DVN 
 
-After running the commands below you should be able to log into http://localhost:8888/dvn/ with networkAdmin/networkAdmin.
+After running the commands below you should be able to log in:
+
+- <http://localhost:8888/dvn/>
+- username: networkAdmin
+- password: networkAdmin
 
 Please note that the first few commands are executed from a Mac called "murphy" but following `vagrant ssh` the rest of the commands are exectuted on the newly-created VM itself ("logus").
 
