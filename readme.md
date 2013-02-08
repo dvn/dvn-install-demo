@@ -370,3 +370,42 @@ Please note that the first few commands are executed from a Mac called "murphy" 
     [root@logus dvninstall]# elinks --dump http://localhost/dvn/ | head -3
                                       [1]Powered by the Dataverse Network Project
                                                                            v. 3.3
+
+## Starting the VM again after it has been shut down
+
+If you've stopped the VM and later want to resume working on it you'll want to type `vagrant up` to start it...
+
+    [pdurbin@tabby dvn-install-demo]$ vagrant up
+    [default] VM already created. Booting if it's not already running...
+    [default] Clearing any previously set forwarded ports...
+    [default] Forwarding ports...
+    [default] -- 22 => 2222 (adapter 1)
+    [default] -- 80 => 8888 (adapter 1)
+    [default] Creating shared folders metadata...
+    [default] Clearing any previously set network interfaces...
+    [default] Running any VM customizations...
+    [default] Booting VM...
+    [default] Waiting for VM to boot. This can take a few minutes.
+    [default] VM booted and ready for use!
+    [default] Mounting shared folders...
+    [default] -- v-root: /vagrant
+    [default] -- manifests: /tmp/vagrant-puppet/manifests
+    [default] -- v-pp-m0: /tmp/vagrant-puppet/modules-0
+    [default] Running provisioner: Vagrant::Provisioners::Puppet...
+    [default] Running Puppet with /tmp/vagrant-puppet/manifests/init.pp...
+    notice: Finished catalog run in 2.12 seconds
+
+... but by default, Glassfish does not start at boot so you won't be able to reach <http://localhost:8888/dvn/>. To start Glassfish, we `vagrant ssh` to to VM, become root, and start Glassfish with `asadmin`:
+
+    [pdurbin@tabby dvn-install-demo]$ vagrant ssh
+    Last login: Wed Jan 23 04:14:47 2013 from 10.0.2.2
+    [vagrant@localhost ~]$ sudo su -
+    [root@localhost ~]# /usr/local/glassfish3/glassfish/bin/asadmin start-domain
+    Waiting for domain1 to start ...............................................................................
+    Successfully started the domain : domain1
+    domain  Location: /usr/local/glassfish3/glassfish/domains/domain1
+    Log File: /usr/local/glassfish3/glassfish/domains/domain1/logs/server.log
+    Admin Port: 4848
+    Debugging is enabled.  The debugging port is: 9009
+    Command start-domain executed successfully.
+    [root@localhost ~]# 
