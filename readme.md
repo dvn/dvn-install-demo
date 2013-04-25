@@ -83,13 +83,6 @@ Please note that the first few commands are executed from a Mac called "murphy" 
     notice: Finished catalog run in 409.46 seconds
 
     murphy:dvn-install-demo pdurbin$ 
-    murphy:dvn-install-demo pdurbin$ vagrant provision
-    [default] Running provisioner: Vagrant::Provisioners::Puppet...
-    [default] Running Puppet with /tmp/vagrant-puppet/manifests/init.pp...
-    notice: /Stage[downloads]/Downloads/Exec[download_dvn_zip]/returns: executed successfully
-
-    notice: Finished catalog run in 23.79 seconds
-
     murphy:dvn-install-demo pdurbin$ vagrant ssh
     Last login: Tue Jul 10 22:56:01 2012 from 10.0.2.2
     [vagrant@logus ~]$ sudo su -
