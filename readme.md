@@ -8,7 +8,7 @@ This git repo allows you to practice installing a Dataverse Network (DVN) on a v
 
 The VM will be running CentOS 6 and the following software:
 
-- DVN 3.3
+- DVN 3.4
 - Glassfish 3.1.2.2
 - PostgreSQL 8.4.13
 - OpenJDK 1.6.0
@@ -74,30 +74,36 @@ Please note that the first few commands are executed from a Mac called "murphy" 
     notice: /Stage[main]/Sysprep/Service[iptables]: Triggered 'refresh' from 1 events
     notice: /Stage[main]/Sysprep/Service[postfix]/ensure: ensure changed 'stopped' to 'running'
     notice: /Stage[downloads]/Downloads/Exec[download_dvn_zip]/returns: executed successfully
-
     notice: /Stage[postgresinit]/Postgresinit/Exec[postgres_init]/returns: executed successfully
+
     notice: /Stage[postgres]/Postgres/File[/var/lib/pgsql/data/pg_hba.conf]/content: content changed '{md5}a21038ed8e80ad95d01da9cb6b0ae403' to '{md5}a634189d83263d566f9a6874c11fcd57'
 
     notice: /Stage[postgres]/Postgres/Service[postgresql]/ensure: ensure changed 'stopped' to 'running'
     notice: /Stage[glassfish]/Glassfish/Exec[install_glassfish]/returns: executed successfully
-    notice: Finished catalog run in 461.44 seconds
+    notice: Finished catalog run in 409.46 seconds
 
     murphy:dvn-install-demo pdurbin$ 
+    murphy:dvn-install-demo pdurbin$ vagrant provision
+    [default] Running provisioner: Vagrant::Provisioners::Puppet...
+    [default] Running Puppet with /tmp/vagrant-puppet/manifests/init.pp...
+    notice: /Stage[downloads]/Downloads/Exec[download_dvn_zip]/returns: executed successfully
+
+    notice: Finished catalog run in 23.79 seconds
+
     murphy:dvn-install-demo pdurbin$ vagrant ssh
     Last login: Tue Jul 10 22:56:01 2012 from 10.0.2.2
     [vagrant@logus ~]$ sudo su -
     [root@logus ~]# ls
     anaconda-ks.cfg            glassfish-answerfile  install.log.syslog
-    dvninstall_v3_3.zip        glassfish-install.sh
+    dvninstall_v3_4.zip        glassfish-install.sh
     glassfish-3.1.2.2-unix.sh  install.log
-    [root@logus ~]# jar xvf dvninstall_v3_3.zip 
+    [root@logus ~]# jar xvf dvninstall_v3_4.zip 
      inflated: dvninstall/domain.xml.TEMPLATE
      inflated: dvninstall/install
      inflated: dvninstall/pgdriver/postgresql-8.3-603.jdbc4.jar
      inflated: dvninstall/pgdriver/postgresql-8.4-703.jdbc4.jar
      inflated: dvninstall/pgdriver/postgresql-9.0-802.jdbc4.jar
      inflated: dvninstall/pgdriver/postgresql-9.1-902.jdbc4.jar
-     inflated: dvninstall/appdeploy/dist/DVN-web.war
      inflated: dvninstall/config/error.xsl
      inflated: dvninstall/config/fgdc2ddi.xsl
      inflated: dvninstall/config/graphml.props
@@ -134,11 +140,12 @@ Please note that the first few commands are executed from a Mac called "murphy" 
      inflated: dvninstall/appdeploy/private.properties
      inflated: dvninstall/appdeploy/project.properties
      inflated: dvninstall/appdeploy/AS.properties.TEMPLATE
+     inflated: dvninstall/appdeploy/dist/DVN-web.war
     [root@logus ~]# cd dvninstall
     [root@logus dvninstall]# ls
     appdeploy  domain.xml.TEMPLATE  pgdriver                    robots.txt
     config     install              referenceData.sql.TEMPLATE  web-core.jar
-    [root@logus dvninstall]# perl install 
+    [root@logus dvninstall]# perl install
 
     Welcome to the DVN installer.
     You will be guided through the process of setting up a NEW
@@ -218,7 +225,8 @@ Please note that the first few commands are executed from a Mac called "murphy" 
 
     Press any key to continue...
 
-     
+
+
 
     Writing glassfish configuration file (domain.xml)... done.
 
@@ -333,12 +341,13 @@ Please note that the first few commands are executed from a Mac called "murphy" 
     ALTER TABLE
     [snip]
     INSERT 0 1
+    UPDATE 1
 
     OK, done!
 
     Starting glassfish, again:
 
-    Waiting for domain1 to start .................................................................................................................................................................................................................................................................
+    Waiting for domain1 to start ...........................................................................................................................................................................................................................................................................
     Successfully started the domain : domain1
     domain  Location: /usr/local/glassfish3/glassfish/domains/domain1
     Log File: /usr/local/glassfish3/glassfish/domains/domain1/logs/server.log
@@ -369,7 +378,7 @@ Please note that the first few commands are executed from a Mac called "murphy" 
     [root@logus dvninstall]# 
     [root@logus dvninstall]# elinks --dump http://localhost/dvn/ | head -3
                                       [1]Powered by the Dataverse Network Project
-                                                                           v. 3.3
+                                                                           v. 3.4
 
 ## Starting the VM again after it has been shut down
 
