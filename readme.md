@@ -517,3 +517,27 @@ Now, let's download dvnextra.tar and continue:
     [root@localhost dvnextra]# 
 
 Now the "Access Analysis + Subsetting" link we tried before should work. The bottom of the page should say "Statistical analysis powered by Zelig."
+
+
+##Issues with installing Glassfish
+
+Some users encounter issues with Glassfish installing, receiving this error (usually while installing on Windows 7):
+
+    Checking your Glassfish installation...
+    Invalid Glassfish directory /usr/local/glassfish3!
+    Enter the root directory of your Glassfish installation:
+    (Or ctrl-C to exit the installer):
+
+If this happens, follows these simple steps to get back on track with the installation:
+
+(1) After typing `vagrant ssh` and `sudo su -` in the instructions, run `sh glassfish-install.sh` from the command prompt. This will download `glassfish-3.1.2.2-unix.sh`, then fail with the error:
+
+     : command not foundh: line 3:
+     This program requires DISPLAY environment variable to be set.
+     Please re-run after assigning an appropriate value to DISPLAY.
+
+(2) Run `sh glassfish-3.1.2.2-unix.sh -a /root/glassfish-answerfile -s`.  This reruns the Unix-specific Glassfish install shell file with the answer file that passes the necessary paths to the installer.  
+
+Continue with the instructions above by typing `jar xvf dvninstall_v3_5_1.zip`.  Glassfish should be in the proper directory (`/usr/local/glassfish3`) and all will be right with the world again. 
+
+For more information, see the page in the [DVN wiki](https://github.com/IQSS/dvn/wiki/DVN-Install-Demo-on-Windows-7) documenting this workaround and the [original email thread](https://groups.google.com/d/topic/dataverse-community/wRxRSGE8VpQ/discussion) discussing this issue.
