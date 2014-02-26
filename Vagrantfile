@@ -1,8 +1,8 @@
 # http://vagrantup.com/v1/docs/vagrantfile.html
 
 Vagrant::Config.run do |config|
-  config.vm.box = "centos"
-  config.vm.box_url = "https://dl.dropbox.com/u/7225008/Vagrant/CentOS-6.3-x86_64-minimal.box"
+  config.vm.box = "puppet-vagrant-boxes-centos-64-x64-vbox4210"
+  config.vm.box_url = "http://puppet-vagrant-boxes.puppetlabs.com/centos-64-x64-vbox4210.box"
 
   config.vm.forward_port 80, 8888
 
