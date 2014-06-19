@@ -8,7 +8,7 @@ This git repo allows you to practice installing a Dataverse Network (DVN) on a v
 
 The VM will be running CentOS 6 and the following software:
 
-- DVN 3.5.1
+- DVN 3.6
 - Glassfish 3.1.2.2
 - PostgreSQL 8.4.13
 - OpenJDK 1.6.0
@@ -89,9 +89,9 @@ Please note that the first few commands are executed from a Mac called "murphy" 
     [vagrant@logus ~]$ sudo su -
     [root@logus ~]# ls
     anaconda-ks.cfg            glassfish-answerfile  install.log.syslog
-    dvninstall_v3_5_1.zip      glassfish-install.sh
+    dvninstall_v3_6.zip      glassfish-install.sh
     glassfish-3.1.2.2-unix.sh  install.log
-    [root@logus ~]# jar xvf dvninstall_v3_5_1.zip
+    [root@logus ~]# jar xvf dvninstall_v3_6.zip
      inflated: dvninstall/domain.xml.TEMPLATE
      inflated: dvninstall/install
      inflated: dvninstall/pgdriver/postgresql-8.3-603.jdbc4.jar
@@ -372,7 +372,7 @@ Please note that the first few commands are executed from a Mac called "murphy" 
     [root@logus dvninstall]# 
     [root@logus dvninstall]# elinks --dump http://localhost/dvn/ | head -3
                                       [1]Powered by the Dataverse Network Project
-                                                                         v. 3.5.1
+                                                                         v. 3.6
 
 ## Starting the VM again after it has been shut down
 
@@ -538,6 +538,6 @@ If this happens, follows these simple steps to get back on track with the instal
 
 (2) Run `sh glassfish-3.1.2.2-unix.sh -a /root/glassfish-answerfile -s`.  This reruns the Unix-specific Glassfish install shell file with the answer file that passes the necessary paths to the installer.  
 
-Continue with the instructions above by typing `jar xvf dvninstall_v3_5_1.zip`.  Glassfish should be in the proper directory (`/usr/local/glassfish3`) and all will be right with the world again. 
+Continue with the instructions above by typing `jar xvf dvninstall_v3_6.zip`.  Glassfish should be in the proper directory (`/usr/local/glassfish3`) and all will be right with the world again. 
 
 For more information, see the page in the [DVN wiki](https://github.com/IQSS/dvn/wiki/DVN-Install-Demo-on-Windows-7) documenting this workaround and the [original email thread](https://groups.google.com/d/topic/dataverse-community/wRxRSGE8VpQ/discussion) discussing this issue.
