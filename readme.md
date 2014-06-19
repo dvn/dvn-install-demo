@@ -13,7 +13,7 @@ The VM will be running CentOS 6 and the following software:
 - PostgreSQL 8.4.13
 - OpenJDK 1.6.0
 
-Please note that in production we do **not** recommend OpenJDK. We recommend the official Java from Oracle.  OpenJDK is used here because it's easy to install.
+Please note that in production we do **not** recommend OpenJDK 1.6. We recommend the official Java 1.6 from Oracle. OpenJDK is used here because it's easy to install.
 
 ## Installing dependencies
 
