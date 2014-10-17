@@ -329,6 +329,12 @@ If you've stopped the VM and later want to resume working on it you'll want to t
     Command start-domain executed successfully.
     [root@localhost ~]# 
 
+## API Testing
+
+The DVN 3.x APIs require https which is on port 9999 in the Vagrant environment.
+
+The location of the Data Deposit API Service Document, for example, is <https://localhost:9999/dvn/api/data-deposit/v1/swordv2/service-document>
+
 ## Installing R and Rserve
 
 When we ran the DVN installer above we didn't install R or Rserve, which are optional components. We saw this message in the output:

@@ -5,6 +5,7 @@ Vagrant::Config.run do |config|
   config.vm.box_url = "http://puppet-vagrant-boxes.puppetlabs.com/centos-64-x64-vbox4210.box"
 
   config.vm.forward_port 80, 8888
+  config.vm.forward_port 443, 9999
 
   config.vm.customize ["modifyvm", :id, "--memory", 1024]
 
